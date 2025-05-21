@@ -1,7 +1,6 @@
-// src/components/CreateCategory.tsx
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { categoryState } from "../atoms";
+import { categoryState, selectedCategoryState } from "../atoms";
 
 interface IForm {
   category: string;
@@ -10,12 +9,14 @@ interface IForm {
 function CreateCategory() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const setCategories = useSetRecoilState(categoryState);
+  const setSelectedCategory = useSetRecoilState(selectedCategoryState);
 
   const onValid = ({ category }: IForm) => {
     setCategories((prev) => {
       if (prev.includes(category)) return prev;
       return [...prev, category];
     });
+    setSelectedCategory(category);
     setValue("category", "");
   };
 
