@@ -1,9 +1,5 @@
-import { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "./theme";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Router from "./routes/Router";
 import { createGlobalStyle } from "styled-components";
+import ToDoList from "./components/ToDoList";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
@@ -70,38 +66,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ThemeToggleButton = styled.button`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: ${(props) => props.theme.accentColor};
-  color: ${(props) => props.theme.bgColor};
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    opacity: 0.85;
-  }
-`;
-
 function App() {
-  const [isDark, setIsDark] = useState(true);
-  const toggleTheme = () => setIsDark((prev) => !prev);
-
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+    <>
       <GlobalStyle />
-      <ThemeToggleButton onClick={toggleTheme}>
-        {isDark ? "Light Mode" : "Dark Mode"}
-      </ThemeToggleButton>
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
-    </ThemeProvider>
+      <ToDoList />
+    </>
   );
 }
 
